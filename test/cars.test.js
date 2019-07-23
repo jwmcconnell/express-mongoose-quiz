@@ -17,7 +17,7 @@ describe('cars routes', () => {
   });
 
   let cars;
-  beforeEach(async() => {
+  beforeEach(async () => {
     const newCars = [
       {
         make: 'Toyota',
@@ -75,6 +75,21 @@ describe('cars routes', () => {
         expect(res.body).toEqual(expect.any(Array));
         carsJSON.forEach(car => {
           expect(res.body).toContainEqual(car);
+        });
+      });
+  });
+
+  it('returns a car by id', () => {
+    return request(app)
+      .get(`/api/v1/cars/${cars[0]._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: cars[0]._id.toString(),
+          make: 'Toyota',
+          model: 'Camry',
+          year: 2019,
+          power: 'Gas',
+          __v: 0
         });
       });
   });

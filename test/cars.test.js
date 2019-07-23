@@ -17,7 +17,7 @@ describe('cars routes', () => {
   });
 
   let cars;
-  beforeEach(async () => {
+  beforeEach(async() => {
     const newCars = [
       {
         make: 'Toyota',
@@ -87,6 +87,27 @@ describe('cars routes', () => {
           _id: cars[0]._id.toString(),
           make: 'Toyota',
           model: 'Camry',
+          year: 2019,
+          power: 'Gas',
+          __v: 0
+        });
+      });
+  });
+
+  it('updates a car by id', () => {
+    return request(app)
+      .put(`/api/v1/cars/${cars[1]._id}`)
+      .send({
+        make: 'Nissan',
+        model: 'GT-R NISMO',
+        year: 2019,
+        power: 'Gas'
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: cars[1]._id.toString(),
+          make: 'Nissan',
+          model: 'GT-R NISMO',
           year: 2019,
           power: 'Gas',
           __v: 0

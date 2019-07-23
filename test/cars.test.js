@@ -34,7 +34,7 @@ describe('cars routes', () => {
       {
         make: 'BMW',
         model: 'i8',
-        year: '2019',
+        year: 2019,
         power: 'Electric'
       }
     ];
@@ -108,6 +108,21 @@ describe('cars routes', () => {
           _id: cars[1]._id.toString(),
           make: 'Nissan',
           model: 'GT-R NISMO',
+          year: 2019,
+          power: 'Gas',
+          __v: 0
+        });
+      });
+  });
+
+  it('deletes a car by id', () => {
+    return request(app)
+      .delete(`/api/v1/cars/${cars[0]._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: cars[0]._id.toString(),
+          make: 'Toyota',
+          model: 'Camry',
           year: 2019,
           power: 'Gas',
           __v: 0
